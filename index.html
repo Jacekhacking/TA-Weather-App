@@ -4,11 +4,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/input.css" />
-    <link href="./dist/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/styles.css" />
     <title>Document</title>
   </head>
-  <body class="bg-black">
-    <h1 class="text-5xl font-bold underline bg-red-50">Hello world!</h1>
+  <body>
+    <h1>Weather App</h1>
+
+    <section class="weather-app-wrapper">
+      <div>
+        <input type="text" id="city-input" value="city" />
+
+        <button id="submit-button">Check Weather</button>
+      </div>
+
+      <div id="temp" class="temp">test</div>
+    </section>
+    <script src="./assets/script.js"></script>
   </body>
 </html>
