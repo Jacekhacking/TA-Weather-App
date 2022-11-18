@@ -1,0 +1,22 @@
+body {
+  background-color: darkgray;
+}
+h1 {
+  text-align: center;
+}
+.weather-app-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: black;
+  height: 500px;
+}
+
+.temp {
+  color: wheat;
+}
+
+.weather {
+  color: wheat;
+}
