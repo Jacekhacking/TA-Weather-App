@@ -65,3 +65,7 @@ h1 {
 .weekly-forecast > * {
   padding: 10px;
 }
+
+.history > * {
+  min-height: 12px;
+}

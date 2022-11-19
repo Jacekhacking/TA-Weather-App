@@ -1,7 +1,7 @@
 let WeatherApiKey = "38920dc3d2d7b05ac11436473723d742";
 let cityInput = document.getElementById("city-input");
 let submitButton = document.getElementById("submit-button");
-
+let historyEl = document.getElementById("history");
 let weatherDescription = document.getElementById("weather");
 let cityHtml = document.getElementById("city");
 let currentTemp = document.getElementById("current-temp");
@@ -66,7 +66,16 @@ const getWeather = async () => {
 
   //session storage
   sessionStorage.setItem(cityHtml.textContent, cityHtml.textContent);
-  lookupHistory.push(cityHtml.textContent);
+
+  if (lookupHistory.length <= 2) {
+    lookupHistory.push(cityHtml.textContent);
+  }
+
+  console.log(lookupHistory);
+
+  historyEl.children[0].textContent = sessionStorage.getItem(lookupHistory[0]);
+  historyEl.children[1].textContent = sessionStorage.getItem(lookupHistory[1]);
+  historyEl.children[2].textContent = sessionStorage.getItem(lookupHistory[2]);
 
   // For loop to create and add the weekly forecast html elements
   for (let i = 0; i < 5; i++) {
@@ -87,7 +96,7 @@ const getWeather = async () => {
 
     document.getElementById(
       `weekly-${i}`
-    ).children[1].textContent = `Temp: ${weeklyForecast.list[i].main.temp}`;
+    ).children[1].textContent = `Temp: ${weeklyForecast.list[i].main.temp}°F`;
 
     document.getElementById(
       `weekly-${i}`
