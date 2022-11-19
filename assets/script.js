@@ -21,14 +21,27 @@ const getWeather = async () => {
     .then((response) => response.json())
     .then((data) => data);
 
-  console.log(todaysForecast.main);
+  // console.log(todaysForecast);
+  // console.log(todaysForecast.main);
+
   console.log(weeklyForecast.list[0].main.temp);
+  console.log(weeklyForecast.list[0]);
 
   cityTemp.textContent = `${weeklyForecast.list[0].main.temp}°F`;
   // weatherDescription.textContent = weatherData.weather[0].description;
 };
 
+// Event Listeners
 submitButton.addEventListener("click", (e) => {
   e.preventDefault;
   getWeather();
+});
+
+cityInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault;
+    console.log("enter pressed");
+    getWeather();
+    return;
+  }
 });
