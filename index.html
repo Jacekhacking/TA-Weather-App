@@ -12,13 +12,20 @@
 
     <section class="weather-app-wrapper">
       <section class="input-section">
-        <input type="text" id="city-input" value="city" />
-        <button id="submit-button">Check Weather</button>
+        <input
+          class="weather-input"
+          type="text"
+          id="city-input"
+          value="Your City"
+        />
+
+        <button class="weather-button" id="submit-button">Check Weather</button>
       </section>
 
       <section class="today-forecast">
         <div style="display: flex; justify-content: center">
           <h2 id="city" style="text-align: center">CITY</h2>
+
           <img id="forecast-image" alt="" src="" />
         </div>
         <p id="current-temp"></p>

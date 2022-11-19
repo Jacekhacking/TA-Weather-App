@@ -10,6 +10,7 @@ let currentWeatherIcon = document.getElementById("forecast-image");
 let currentWind = document.getElementById("current-wind");
 let currentHumidity = document.getElementById("current-humidity");
 let userCityInput;
+let lookupHistory = [];
 
 const getWeather = async () => {
   userCityInput = cityInput.value;
@@ -18,24 +19,54 @@ const getWeather = async () => {
   let todaysForecast = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${userCityInput}&appid=${WeatherApiKey}&units=imperial`
   )
-    .then((response) => response.json())
-    .then((data) => data);
+    .then(async (response) => {
+      const isJson = response.headers
+        .get("content-type")
+        ?.includes("application/json");
+      const data = isJson ? await response.json() : null;
 
+      if (!response.ok) {
+        const error = (data && data.message) || response.status;
+        return Promise.reject(error);
+      }
+      return data;
+    })
+    .catch((error) => {
+      cityHtml.textContent = `Error: ${error} TRY AGAIN!`;
+      console.error("there was an error!");
+    });
   //    week long forecast request
   let weeklyForecast = await fetch(
     `http://api.openweathermap.org/data/2.5/forecast?q=${userCityInput}&appid=${WeatherApiKey}&units=imperial`
   )
-    .then((response) => response.json())
-    .then((data) => data);
-  //    setting text content and pdf
+    .then(async (response) => {
+      const isJson = response.headers
+        .get("content-type")
+        ?.includes("application/json");
+      const data = isJson ? await response.json() : null;
+
+      if (!response.ok) {
+        const error = (data && data.message) || response.status;
+        return Promise.reject(error);
+      }
+      return data;
+    })
+    .catch((error) => {
+      Element.parentElement.innerHTML = `Error: ${error}`;
+      console.error("there was an error!");
+    });
+
+  // Setting main weather text content
   currentWeatherIcon.src = `http://openweathermap.org/img/w/${todaysForecast.weather[0].icon}.png`;
   currentForecast.textContent = `Forecast: ${todaysForecast.weather[0].description}`;
   currentTemp.textContent = `Temp: ${todaysForecast.main.temp}°F`;
   cityHtml.textContent = userCityInput.toUpperCase();
   currentWind.textContent = `Wind: ${todaysForecast.wind.speed} MPH`;
-  currentHumidity.textContent = `Humidity: ${todaysForecast.main.humidity} %`;
+  currentHumidity.textContent = `Humidity: ${todaysForecast.main.humidity}%`;
 
-  console.log(weeklyForecast);
+  //session storage
+  sessionStorage.setItem(cityHtml.textContent, cityHtml.textContent);
+  lookupHistory.push(cityHtml.textContent);
 
   // For loop to create and add the weekly forecast html elements
   for (let i = 0; i < 5; i++) {
@@ -68,24 +99,24 @@ const getWeather = async () => {
 
     document.getElementById(
       `weekly-${i}`
-    ).children[4].textContent = `Humidity: ${weeklyForecast.list[i].main.humidity} %`;
+    ).children[4].textContent = `Humidity: ${weeklyForecast.list[i].main.humidity}%`;
   }
+
+  console.log(sessionStorage.getItem(lookupHistory[0]));
 };
 
 // Event Listeners
 submitButton.addEventListener("click", (e) => {
   e.preventDefault;
   getWeather();
-  cityInput.value = "city";
+  cityInput.value = "";
 });
 
 cityInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     e.preventDefault;
-    console.log("enter pressed");
     getWeather();
-    cityInput.value = "city";
-
+    cityInput.value = "";
     return;
   }
 });
