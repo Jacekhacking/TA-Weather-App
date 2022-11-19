@@ -1,16 +1,18 @@
 body {
   background-color: darkgray;
+  padding: 0;
+  margin: 0;
+  min-height: 90vh;
 }
 h1 {
   text-align: center;
 }
 .weather-app-wrapper {
+  padding: 0;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  background-color: black;
-  height: 500px;
 }
 
 .temp {
@@ -19,4 +21,32 @@ h1 {
 
 .weather {
   color: wheat;
+}
+.input-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.today-forecast {
+  margin: 1rem;
+  padding: 10px;
+  border: 2px solid black;
+  min-height: 250px;
+  min-width: 300px;
+}
+
+.weekly-forecast {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  margin: 1rem;
+  border: 2px solid black;
+  height: 300px;
+  min-width: 600px;
+}
+
+.weekly-forecast > * {
+  padding: 10px;
 }

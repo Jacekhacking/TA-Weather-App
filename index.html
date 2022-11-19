@@ -11,14 +11,34 @@
     <h1>Weather App</h1>
 
     <section class="weather-app-wrapper">
-      <div>
+      <section class="input-section">
         <input type="text" id="city-input" value="city" />
-
         <button id="submit-button">Check Weather</button>
-      </div>
+      </section>
 
-      <div id="temp" class="temp">test</div>
+      <section class="today-forecast">
+        <div style="display: flex; justify-content: center">
+          <h2 id="city" style="text-align: center">CITY</h2>
+          <img id="forecast-image" alt="" src="" />
+        </div>
+        <p id="current-temp"></p>
+        <p id="current-forecast"></p>
+        <p id="current-wind"></p>
+        <p id="current-humidity"></p>
+      </section>
     </section>
+    <section
+      style="display: flex; align-items: center; justify-content: center"
+    >
+      <section class="weekly-forecast">
+        <div id="weekly-0"></div>
+        <div id="weekly-1"></div>
+        <div id="weekly-2"></div>
+        <div id="weekly-3"></div>
+        <div id="weekly-4"></div>
+      </section>
+    </section>
+
     <script src="./assets/script.js"></script>
   </body>
 </html>
