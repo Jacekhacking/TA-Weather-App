@@ -11,6 +11,7 @@ let currentWind = document.getElementById("current-wind");
 let currentHumidity = document.getElementById("current-humidity");
 let userCityInput;
 let lookupHistory = [];
+let dateString;
 
 const getWeather = async () => {
   userCityInput = cityInput.value;
@@ -67,18 +68,22 @@ const getWeather = async () => {
   //session storage
   sessionStorage.setItem(cityHtml.textContent, cityHtml.textContent);
 
-  if (lookupHistory.length <= 2) {
-    lookupHistory.push(cityHtml.textContent);
-  }
+  lookupHistory.push(cityHtml.textContent);
 
-  console.log(lookupHistory);
+  // console.log(lookupHistory);
 
-  historyEl.children[0].textContent = sessionStorage.getItem(lookupHistory[0]);
-  historyEl.children[1].textContent = sessionStorage.getItem(lookupHistory[1]);
-  historyEl.children[2].textContent = sessionStorage.getItem(lookupHistory[2]);
+  historyEl.children[0].textContent = sessionStorage.getItem(
+    lookupHistory[lookupHistory.length - 1]
+  );
+  historyEl.children[1].textContent = sessionStorage.getItem(
+    lookupHistory[lookupHistory.length - 2]
+  );
+  historyEl.children[2].textContent = sessionStorage.getItem(
+    lookupHistory[lookupHistory.length - 3]
+  );
 
   // For loop to create and add the weekly forecast html elements
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 25; i++) {
     let para = document.createElement("p");
     let para1 = document.createElement("p");
     let para2 = document.createElement("p");
@@ -90,9 +95,9 @@ const getWeather = async () => {
     document.getElementById(`weekly-${i}`).appendChild(para2);
     document.getElementById(`weekly-${i}`).appendChild(para3);
     document.getElementById(`weekly-${i}`).appendChild(para4);
-    let dateString = weeklyForecast.list[i].dt_txt;
-    document.getElementById(`weekly-${i}`).children[0].textContent =
-      dateString.slice(0, 11);
+
+    dateString = weeklyForecast.list[i].dt_txt;
+    document.getElementById(`weekly-${i}`).children[0].textContent = dateString;
 
     document.getElementById(
       `weekly-${i}`
